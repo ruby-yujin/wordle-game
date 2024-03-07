@@ -1,0 +1,38 @@
+html {
+  box-sizing: border-box;
+}
+
+header {
+  font-size: 20px;
+  text-align: center;
+}
+
+footer {
+  .keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    .keyboard-item {
+      width: 60px;
+      height: 60px;
+      border-radius: 20px;
+      background: #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      font-size: 22px;
+      margin-bottom: 10px;
+      &.btn-back {
+        img {
+          width: 30px;
+        }
+      }
+      &.btn-enter {
+        img {
+          width: 30px;
+        }
+      }
+    }
+  }
+}
