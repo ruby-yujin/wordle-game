@@ -1,7 +1,6 @@
-//정답
-const anwser = "APPLE";
+const 정답 = "APPLE";
 
-let trycount = 0;
+let attempts = 0;
 let index = 0;
 let timer;
 
@@ -20,39 +19,37 @@ function appStart() {
     clearInterval(timer);
   };
 
-  //다음라인
   const nextLine = () => {
-    if (trycount === 6) return gameover();
-    trycount += 1;
+    if (attempts === 6) return gameover();
+    attempts += 1;
     index = 0;
   };
 
-  //정답확인
   const handleEnterKey = () => {
-    let correctText = 0;
+    let 맞은_갯수 = 0;
 
     for (let i = 0; i < 5; i++) {
       const block = document.querySelector(
-        `.board-block[data-index='${trycount}${i}']`
+        `.board-column[data-index='${attempts}${i}']`
       );
-
-      const writeText = block.innerText;
-      const correctText = anwser[i];
-
-      if (writeText === correctText) block.style.background = "#6aaa64";
-      else if (anwser.includes(writeText)) block.style.background = "#C9B458";
-      else block.style.background = "#555555";
-      block.style.color = "#ffffff";
+      const 입력한_글자 = block.innerText;
+      const 정답_글자 = 정답[i];
+      if (입력한_글자 === 정답_글자) {
+        맞은_갯수 += 1;
+        block.style.background = "#6AAA64";
+      } else if (정답.includes(입력한_글자)) block.style.background = "#C9B458";
+      else block.style.background = "#787C7E";
+      block.style.color = "white";
     }
-    if (correctText === 5) gameover();
+
+    if (맞은_갯수 === 5) gameover();
     else nextLine();
   };
 
   const handleBackspace = () => {
-    // * 로직
     if (index > 0) {
       const preBlock = document.querySelector(
-        `.board-block[data-index='${trycount}${index - 1}']`
+        `.board-column[data-index='${attempts}${index - 1}']`
       );
       preBlock.innerText = "";
     }
@@ -60,13 +57,12 @@ function appStart() {
   };
 
   const handleKeydown = (event) => {
-    const key = event.key;
+    const key = event.key.toUpperCase();
     const keyCode = event.keyCode;
     const thisBlock = document.querySelector(
-      `.board-block[data-index='${trycount}${index}']`
+      `.board-column[data-index='${attempts}${index}']`
     );
 
-    // * 로직
     if (event.key === "Backspace") handleBackspace();
     else if (index === 5) {
       if (event.key === "Enter") handleEnterKey();
@@ -78,15 +74,15 @@ function appStart() {
   };
 
   const startTimer = () => {
-    const startTime = new Date();
+    const 시작_시간 = new Date();
 
     function setTime() {
-      const currentTime = new Date();
-      const doingTime = new Date(currentTime - startTime);
-      const min = doingTime.getMinutes().toString().padStart(2, "0");
-      const sec = doingTime.getSeconds().toString().padStart(2, "0");
+      const 현재_시간 = new Date();
+      const 흐른_시간 = new Date(현재_시간 - 시작_시간);
+      const 분 = 흐른_시간.getMinutes().toString().padStart(2, "0");
+      const 초 = 흐른_시간.getSeconds().toString().padStart(2, "0");
       const timeDiv = document.querySelector("#timer");
-      timeDiv.innerText = `${min}:${sec}`;
+      timeDiv.innerText = `${분}:${초}`;
     }
 
     timer = setInterval(setTime, 1000);
